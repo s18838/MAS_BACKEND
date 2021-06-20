@@ -5,14 +5,9 @@ namespace Restaurant.Models
 {
     public abstract class Reservation
     {
-        public Reservation() {
-            Orders = new HashSet<Order>();
-        }
-
         public int Id { get; set; }
         public DateTime ReservationDate { get; set; }
         public ReservationStatus Status { get; set; }
-
         public int ClientId { get; set; }
         private Client client;
         public Client Client {
@@ -22,8 +17,12 @@ namespace Restaurant.Models
                 client.AddReservation(this);
             }
         }
-
         public ICollection<Order> Orders { get; set; }
+
+        public Reservation()
+        {
+            Orders = new HashSet<Order>();
+        }
 
         public void AddOrder(Order order)
         {

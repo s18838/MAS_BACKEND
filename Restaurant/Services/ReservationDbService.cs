@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Restaurant.DTO;
 using Restaurant.Models;
 
@@ -16,6 +18,7 @@ namespace Restaurant.Services
 
         public bool Check(ReservationDateDTO reservationDateDTO)
         {
+            if (reservationDateDTO.Date < DateTime.Now) { return false; }
             return _restaurantContext.RoomReservations.Where(e =>
                 e.PartyRoomId == reservationDateDTO.RoomId &&
                 e.ReservationDate == reservationDateDTO.Date
@@ -24,6 +27,7 @@ namespace Restaurant.Services
 
         public bool Check(ReservationDTO reservationDTO)
         {
+            if (reservationDTO.Date < DateTime.Now) { return false; }
             return _restaurantContext.RoomReservations.Where(e =>
                 e.PartyRoomId == reservationDTO.RoomId &&
                 e.ReservationDate == reservationDTO.Date
@@ -41,6 +45,21 @@ namespace Restaurant.Services
                 Status = ReservationStatus.Active
             });
             _restaurantContext.SaveChanges();
+        }
+
+        public ICollection<RoomDTO> GetReservedRooms(int userId)
+        {
+            return _restaurantContext.PartyRooms
+                .Where(e => e.RoomReservations
+                    .Where(e => e.ClientId == userId)
+                    .Any()
+                ).Include(e => e.Tables)
+                .Select(e => new RoomDTO() {
+                    Id = e.Id,
+                    Level = e.Level,
+                    Image = e.Image,
+                    TableCount = e.Tables.Count
+                }).ToList();
         }
     }
 }

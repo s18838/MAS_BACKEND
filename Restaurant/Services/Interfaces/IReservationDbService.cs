@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Restaurant.DTO;
 
 namespace Restaurant.Services
@@ -8,5 +9,6 @@ namespace Restaurant.Services
         public bool Check(ReservationDateDTO reservationDateDTO);
         public bool Check(ReservationDTO reservationDTO);
         public void Reserve(ReservationDTO reservationDTO, int userId);
+        public ICollection<RoomDTO> GetReservedRooms(int userId);
     }
 }

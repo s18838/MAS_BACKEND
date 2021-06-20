@@ -137,7 +137,7 @@ namespace Restaurant.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ReservationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    ClientId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ClientId = table.Column<int>(type: "INTEGER", nullable: false),
                     Discriminator = table.Column<string>(type: "TEXT", nullable: false),
                     PersonCount = table.Column<int>(type: "INTEGER", nullable: true),
                     PartyRoomId = table.Column<int>(type: "INTEGER", nullable: true),
@@ -151,7 +151,7 @@ namespace Restaurant.Migrations
                         column: x => x.ClientId,
                         principalTable: "People",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservation_Room_PartyRoomId",
                         column: x => x.PartyRoomId,
@@ -163,7 +163,7 @@ namespace Restaurant.Migrations
                         column: x => x.TableId,
                         principalTable: "Tables",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,8 +173,8 @@ namespace Restaurant.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Status = table.Column<string>(type: "TEXT", nullable: false),
-                    ReservationId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    ReservationId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -184,7 +184,7 @@ namespace Restaurant.Migrations
                         column: x => x.ReservationId,
                         principalTable: "Reservation",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,8 +195,8 @@ namespace Restaurant.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Count = table.Column<int>(type: "INTEGER", nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    DishId = table.Column<int>(type: "INTEGER", nullable: true),
-                    OrderId = table.Column<int>(type: "INTEGER", nullable: true)
+                    DishId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -206,13 +206,13 @@ namespace Restaurant.Migrations
                         column: x => x.DishId,
                         principalTable: "Dishes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -355,17 +355,17 @@ namespace Restaurant.Migrations
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 1, 9, 1 });
+                values: new object[] { 1, 7, 1 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 16, 4, 3 });
+                values: new object[] { 16, 5, 3 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 15, 4, 3 });
+                values: new object[] { 15, 5, 3 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
@@ -375,42 +375,42 @@ namespace Restaurant.Migrations
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 13, 9, 3 });
+                values: new object[] { 13, 4, 3 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 12, 9, 3 });
+                values: new object[] { 12, 6, 3 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 11, 6, 3 });
+                values: new object[] { 11, 9, 3 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 10, 6, 3 });
+                values: new object[] { 10, 3, 3 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 9, 9, 3 });
+                values: new object[] { 9, 8, 3 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 8, 7, 2 });
+                values: new object[] { 8, 3, 2 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 7, 7, 2 });
+                values: new object[] { 7, 5, 2 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 6, 8, 2 });
+                values: new object[] { 6, 9, 2 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
@@ -420,27 +420,27 @@ namespace Restaurant.Migrations
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 4, 6, 2 });
+                values: new object[] { 4, 4, 2 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 3, 5, 1 });
+                values: new object[] { 3, 9, 1 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 2, 8, 1 });
+                values: new object[] { 2, 9, 1 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 17, 3, 3 });
+                values: new object[] { 17, 5, 3 });
 
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "NumberOfSeats", "RoomId" },
-                values: new object[] { 18, 5, 3 });
+                values: new object[] { 18, 6, 3 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChefRobotOrderItem_OrderItemsId",

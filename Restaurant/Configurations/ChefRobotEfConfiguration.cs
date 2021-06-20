@@ -5,8 +5,14 @@ using Restaurant.Models;
 
 namespace Restaurant.Configurations
 {
+    /// <summary>
+    /// Configuration for ChefRobot
+    /// </summary>
     public class ChefRobotEfConfiguration : IEntityTypeConfiguration<ChefRobot>
     {
+        /// <summary>
+        /// Configuration method
+        /// </summary>
         public void Configure(EntityTypeBuilder<ChefRobot> builder)
         {
             builder.Property(e => e.Specialization)

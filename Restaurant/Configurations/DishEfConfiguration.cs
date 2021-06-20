@@ -5,8 +5,14 @@ using Restaurant.Models;
 
 namespace Restaurant.Configurations
 {
+    /// <summary>
+    /// Configuration for Dish
+    /// </summary>
     public class DishEfConfiguration : IEntityTypeConfiguration<Dish>
     {
+        /// <summary>
+        /// Configuration method
+        /// </summary>
         public void Configure(EntityTypeBuilder<Dish> builder)
         {
             builder.HasKey(e => e.Id);

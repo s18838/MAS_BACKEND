@@ -5,11 +5,6 @@ namespace Restaurant.Models
 {
     public class Table
     {
-        public Table()
-        {
-            TableReservations = new HashSet<TableReservation>();
-        }
-
         public int Id { get; set; }
         public int NumberOfSeats { get; set; }
         public int RoomId { get; set; }
@@ -24,6 +19,11 @@ namespace Restaurant.Models
             } 
         }
         public ICollection<TableReservation> TableReservations { get; set; }
+
+        public Table()
+        {
+            TableReservations = new HashSet<TableReservation>();
+        }
 
         public void AddTableReservation(TableReservation tableReservation)
         {

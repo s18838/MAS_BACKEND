@@ -8,6 +8,9 @@ using Restaurant.Services;
 
 namespace Restaurant.Controllers
 {
+    /// <summary>
+    /// Accounts controller
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class AccountsController : ControllerBase
@@ -15,11 +18,17 @@ namespace Restaurant.Controllers
 
         private IAuthService _authService;
 
+        /// <summary>
+        /// AccountsController constructor
+        /// </summary>
         public AccountsController(IAuthService authService)
         {
             _authService = authService;
         }
 
+        /// <summary>
+        /// Authorize method
+        /// </summary>
         [HttpPost("authorize")]
         public IActionResult Authorize([FromBody] AccountDTO accountDTO)
         {
@@ -33,6 +42,9 @@ namespace Restaurant.Controllers
             }
         }
 
+        /// <summary>
+        /// Create account method
+        /// </summary>
         [HttpPost("create")]
         public IActionResult Create([FromBody] AccountDTO accountDTO)
         {

@@ -1,6 +1,9 @@
 ﻿using System;
 namespace Restaurant.DTO
 {
+    /// <summary>
+    /// Room Data Transfer Object
+    /// </summary>
     public class RoomDTO
     {
         public int Id { get; set; }

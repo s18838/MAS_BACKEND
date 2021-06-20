@@ -5,26 +5,12 @@ namespace Restaurant.Models
 {
     public class OrderItem
     {
-        private OrderItem() { }
-        private OrderItem(Order order)
-        {
-            Cooks = new HashSet<Cook>();
-            ChefRobots = new HashSet<ChefRobot>();
-            Order = order;
-        }
-
-        public OrderItem CreateOrderItem(Order order)
-        {
-            OrderItem orderItem = new OrderItem(order);
-            order.AddOrderItem(orderItem);
-            return orderItem;
-        }
-
         public int Id { get; set; }
         public int Count { get; set; }
-        public OrderStatus Status { get; set; }
+        public OrderItemStatus Status { get; set; }
         public ICollection<Cook> Cooks { get; set; }
         public ICollection<ChefRobot> ChefRobots { get; set; }
+        public int DishId { get; set; }
         private Dish dish;
         public Dish Dish {
             get => dish;
@@ -35,7 +21,27 @@ namespace Restaurant.Models
                 value.AddOrderItem(this);
             }
         }
+        public int OrderId { get; set; }
         public Order Order { get; }
+
+        private OrderItem() {
+            Cooks = new HashSet<Cook>();
+            ChefRobots = new HashSet<ChefRobot>();
+        }
+
+        private OrderItem(Order order)
+        {
+            Cooks = new HashSet<Cook>();
+            ChefRobots = new HashSet<ChefRobot>();
+            Order = order;
+        }
+
+        public static OrderItem CreateOrderItem(Order order)
+        {
+            OrderItem orderItem = new OrderItem(order);
+            order.AddOrderItem(orderItem);
+            return orderItem;
+        }
 
         public void AddCook(Cook cook)
         {

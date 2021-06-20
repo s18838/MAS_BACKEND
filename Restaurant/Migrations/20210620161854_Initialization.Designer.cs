@@ -9,7 +9,7 @@ using Restaurant.Models;
 namespace Restaurant.Migrations
 {
     [DbContext(typeof(RestaurantContext))]
-    [Migration("20210606131500_Initialization")]
+    [Migration("20210620161854_Initialization")]
     partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,12 +224,11 @@ namespace Restaurant.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ReservationId")
+                    b.Property<int>("ReservationId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -247,10 +246,10 @@ namespace Restaurant.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("DishId")
+                    b.Property<int>("DishId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Status")
@@ -314,7 +313,7 @@ namespace Restaurant.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Discriminator")
@@ -415,25 +414,25 @@ namespace Restaurant.Migrations
                         new
                         {
                             Id = 1,
-                            NumberOfSeats = 9,
+                            NumberOfSeats = 7,
                             RoomId = 1
                         },
                         new
                         {
                             Id = 2,
-                            NumberOfSeats = 8,
+                            NumberOfSeats = 9,
                             RoomId = 1
                         },
                         new
                         {
                             Id = 3,
-                            NumberOfSeats = 5,
+                            NumberOfSeats = 9,
                             RoomId = 1
                         },
                         new
                         {
                             Id = 4,
-                            NumberOfSeats = 6,
+                            NumberOfSeats = 4,
                             RoomId = 2
                         },
                         new
@@ -445,49 +444,49 @@ namespace Restaurant.Migrations
                         new
                         {
                             Id = 6,
-                            NumberOfSeats = 8,
+                            NumberOfSeats = 9,
                             RoomId = 2
                         },
                         new
                         {
                             Id = 7,
-                            NumberOfSeats = 7,
+                            NumberOfSeats = 5,
                             RoomId = 2
                         },
                         new
                         {
                             Id = 8,
-                            NumberOfSeats = 7,
+                            NumberOfSeats = 3,
                             RoomId = 2
                         },
                         new
                         {
                             Id = 9,
-                            NumberOfSeats = 9,
+                            NumberOfSeats = 8,
                             RoomId = 3
                         },
                         new
                         {
                             Id = 10,
-                            NumberOfSeats = 6,
+                            NumberOfSeats = 3,
                             RoomId = 3
                         },
                         new
                         {
                             Id = 11,
-                            NumberOfSeats = 6,
+                            NumberOfSeats = 9,
                             RoomId = 3
                         },
                         new
                         {
                             Id = 12,
-                            NumberOfSeats = 9,
+                            NumberOfSeats = 6,
                             RoomId = 3
                         },
                         new
                         {
                             Id = 13,
-                            NumberOfSeats = 9,
+                            NumberOfSeats = 4,
                             RoomId = 3
                         },
                         new
@@ -499,25 +498,25 @@ namespace Restaurant.Migrations
                         new
                         {
                             Id = 15,
-                            NumberOfSeats = 4,
+                            NumberOfSeats = 5,
                             RoomId = 3
                         },
                         new
                         {
                             Id = 16,
-                            NumberOfSeats = 4,
+                            NumberOfSeats = 5,
                             RoomId = 3
                         },
                         new
                         {
                             Id = 17,
-                            NumberOfSeats = 3,
+                            NumberOfSeats = 5,
                             RoomId = 3
                         },
                         new
                         {
                             Id = 18,
-                            NumberOfSeats = 5,
+                            NumberOfSeats = 6,
                             RoomId = 3
                         });
                 });
@@ -592,7 +591,7 @@ namespace Restaurant.Migrations
                 {
                     b.HasBaseType("Restaurant.Models.Reservation");
 
-                    b.Property<int?>("TableId")
+                    b.Property<int>("TableId")
                         .HasColumnType("INTEGER");
 
                     b.HasIndex("TableId");
@@ -712,7 +711,9 @@ namespace Restaurant.Migrations
                 {
                     b.HasOne("Restaurant.Models.Reservation", "Reservation")
                         .WithMany("Orders")
-                        .HasForeignKey("ReservationId");
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Reservation");
                 });
@@ -721,20 +722,28 @@ namespace Restaurant.Migrations
                 {
                     b.HasOne("Restaurant.Models.Dish", "Dish")
                         .WithMany("OrderItems")
-                        .HasForeignKey("DishId");
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Restaurant.Models.Order", null)
+                    b.HasOne("Restaurant.Models.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Dish");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Restaurant.Models.Reservation", b =>
                 {
                     b.HasOne("Restaurant.Models.Client", "Client")
                         .WithMany("Reservations")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Client");
                 });
@@ -780,7 +789,9 @@ namespace Restaurant.Migrations
                 {
                     b.HasOne("Restaurant.Models.Table", "Table")
                         .WithMany("TableReservations")
-                        .HasForeignKey("TableId");
+                        .HasForeignKey("TableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Table");
                 });

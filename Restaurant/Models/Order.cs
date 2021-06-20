@@ -5,15 +5,11 @@ namespace Restaurant.Models
 {
     public class Order
     {
-        public Order()
-        {
-            WaiterRobots = new HashSet<WaiterRobot>();
-            OrderItems = new HashSet<OrderItem>();
-        }
 
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
-        public string Status { get; set; }
+        public OrderStatus Status { get; set; }
+        public int ReservationId { get; set; }
         private Reservation reservation;
         public Reservation Reservation {
             get => reservation;
@@ -25,6 +21,12 @@ namespace Restaurant.Models
         }
         public ICollection<WaiterRobot> WaiterRobots { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
+
+        public Order()
+        {
+            WaiterRobots = new HashSet<WaiterRobot>();
+            OrderItems = new HashSet<OrderItem>();
+        }
 
         public void AddWaiterRobot(WaiterRobot waiterRobot)
         {

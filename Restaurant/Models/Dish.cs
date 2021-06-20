@@ -5,11 +5,6 @@ namespace Restaurant.Models
 {
     public class Dish
     {
-        public Dish()
-        {
-            OrderItems = new HashSet<OrderItem>();
-        }
-
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
@@ -19,6 +14,11 @@ namespace Restaurant.Models
         public string Image { get; set; }
         public int CookingTime { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
+
+        public Dish()
+        {
+            OrderItems = new HashSet<OrderItem>();
+        }
 
         public void AddOrderItem(OrderItem orderItem)
         {

@@ -5,8 +5,14 @@ using Restaurant.Models;
 
 namespace Restaurant.Configurations
 {
+    /// <summary>
+    /// Configuration for RoomReservation
+    /// </summary>
     public class RoomReservationEfConfiguration : IEntityTypeConfiguration<RoomReservation>
     {
+        /// <summary>
+        /// Configuration method
+        /// </summary>
         public void Configure(EntityTypeBuilder<RoomReservation> builder)
         {
             builder.Property(e => e.PersonCount)

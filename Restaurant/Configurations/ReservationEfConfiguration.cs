@@ -1,12 +1,17 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Restaurant.Models;
 
 namespace Restaurant.Configurations
 {
+    /// <summary>
+    /// Configuration for Reservation
+    /// </summary>
     public class ReservationEfConfiguration : IEntityTypeConfiguration<Reservation>
     {
+        /// <summary>
+        /// Configuration method
+        /// </summary>
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
             builder.Property(e => e.Id)
@@ -19,7 +24,8 @@ namespace Restaurant.Configurations
                 .IsRequired();
 
             builder.HasOne(e => e.Client)
-                .WithMany(e => e.Reservations);
+                .WithMany(e => e.Reservations)
+                .HasForeignKey(e => e.ClientId);
         }
     }
 }

@@ -5,13 +5,13 @@ namespace Restaurant.Models
 {
     public class WaiterRobot : Robot
     {
+        public static int MaxTableCount = 5;
+        public ICollection<Order> Orders { get; set; }
+
         public WaiterRobot()
         {
             Orders = new HashSet<Order>();
         }
-
-        public static int MaxTableCount = 5;
-        public ICollection<Order> Orders { get; set; }
 
         public void AddOrder(Order order)
         {

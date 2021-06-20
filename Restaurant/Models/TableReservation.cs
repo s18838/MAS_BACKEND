@@ -5,6 +5,7 @@ namespace Restaurant.Models
 {
     public class TableReservation : Reservation
     {
+        public int TableId { get; set; }
         private Table table;
         public Table Table {
             get => table;

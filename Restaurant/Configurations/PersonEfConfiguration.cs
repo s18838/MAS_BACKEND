@@ -5,8 +5,14 @@ using Restaurant.Models;
 
 namespace Restaurant.Configurations
 {
+    /// <summary>
+    /// Configuration for Person
+    /// </summary>
     public class PersonEfConfiguration : IEntityTypeConfiguration<Person>
     {
+        /// <summary>
+        /// Configuration method
+        /// </summary>
         public void Configure(EntityTypeBuilder<Person> builder)
         {
             builder.Property(e => e.Id)

@@ -17,6 +17,7 @@ namespace Restaurant.Models
         }
 
         public Room(Room room) : this() {
+            Id = room.Id;
             Level = room.Level;
             Image = room.Image;
             Tables = room.Tables;

@@ -5,8 +5,14 @@ using Restaurant.Models;
 
 namespace Restaurant.Configurations
 {
+    /// <summary>
+    /// Configuration for OrderItem
+    /// </summary>
     public class OrderItemEfConfiguration : IEntityTypeConfiguration<OrderItem>
     {
+        /// <summary>
+        /// Configuration method
+        /// </summary>
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
             builder.Property(e => e.Id)
@@ -19,7 +25,8 @@ namespace Restaurant.Configurations
                 .IsRequired();
 
             builder.HasOne(e => e.Dish)
-                .WithMany(e => e.OrderItems);
+                .WithMany(e => e.OrderItems)
+                .HasForeignKey(e => e.DishId);
 
             builder.HasMany(e => e.Cooks)
                 .WithMany(e => e.OrderItems);

@@ -28,6 +28,7 @@ namespace Restaurant.Models
             if (!Tables.Contains(table))
             {
                 Tables.Add(table);
+                table.RoomId = Id;
                 table.Room = this;
             }
         }

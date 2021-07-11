@@ -23,6 +23,7 @@ namespace Restaurant.Models
             {
                 RoomReservations.Add(roomReservation);
                 roomReservation.PartyRoom = this;
+                roomReservation.PartyRoomId = Id;
             }
         }
     }

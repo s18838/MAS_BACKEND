@@ -25,6 +25,7 @@ namespace Restaurant.Models
             if (!OrderItems.Contains(orderItem))
             {
                 OrderItems.Add(orderItem);
+                orderItem.DishId = Id;
                 orderItem.Dish = this;
             }
         }

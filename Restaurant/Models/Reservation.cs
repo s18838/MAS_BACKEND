@@ -29,6 +29,7 @@ namespace Restaurant.Models
             if (!Orders.Contains(order))
             {
                 Orders.Add(order);
+                order.ReservationId = Id;
                 order.Reservation = this;
             }
         }

@@ -34,6 +34,7 @@ namespace Restaurant.Models
             Cooks = new HashSet<Cook>();
             ChefRobots = new HashSet<ChefRobot>();
             Order = order;
+            OrderId = order.Id;
         }
 
         public static OrderItem CreateOrderItem(Order order)

@@ -30,6 +30,7 @@ namespace Restaurant.Models
             if (!TableReservations.Contains(tableReservation))
             {
                 TableReservations.Add(tableReservation);
+                tableReservation.TableId = Id;
                 tableReservation.Table = this;
             }
         } 
